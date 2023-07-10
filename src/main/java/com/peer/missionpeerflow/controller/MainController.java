@@ -1,5 +1,6 @@
 package com.peer.missionpeerflow.controller;
 
+import com.peer.missionpeerflow.dto.response.MainQuestionDTO;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.service.MainService;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +17,15 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/v1?category={category}&sort={sort}&page={page}&size={size}")
-    public Page<Question> getMainList(Model model,
-                                      @PathVariable String category,
-                                      @PathVariable String sort,
-                                      @PathVariable int page,
-                                      @PathVariable int size) {
+    public Page<MainQuestionDTO> getMainList(Model model,
+                                                      @PathVariable String category,
+                                                      @PathVariable String sort,
+                                                      @PathVariable int page,
+                                                      @PathVariable int size) {
         try {
-            Page<Question> questionList = this.mainService.getMainList(category, sort, page, size);
-            model.addAttribute("questionList", questionList);
-            return questionList;
+            Page<MainQuestionDTO> questionDTOList = this.mainService.getMainList(category, sort, page, size);
+            model.addAttribute("questionList", questionDTOList);
+            return questionDTOList;
         } catch (NotFoundException e) {
             e.printStackTrace();
             return null;
