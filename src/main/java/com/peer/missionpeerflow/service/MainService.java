@@ -16,7 +16,7 @@ public class MainService{
 
     public Page<Question> getMainList(String category, String sort, int page, int size) {
         try {
-            Sort sortClass = this.getSortClass(sort);
+            Sort sortClass = this.getQuestionPageSortClass(sort);
             PageRequest pageRequest = PageRequest.of(page, size, Sort.by(sort));
             return mainRepository.findAllByCategory(category, pageRequest);
         } catch (Exception e) {
@@ -25,7 +25,7 @@ public class MainService{
         }
     }
 
-    private Sort getSortClass(String sortKeyword) {
+    private Sort getQuestionPageSortClass(String sortKeyword) {
         switch (sortKeyword) {
             case "latest":
                 return Sort.by("createdAt").descending();
