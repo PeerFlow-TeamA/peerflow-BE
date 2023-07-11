@@ -1,15 +1,18 @@
 package com.peer.missionpeerflow.controller;
 
 import com.peer.missionpeerflow.dto.response.MainQuestionDTO;
-import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.service.MainService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.QueryParameterException;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.peer.missionpeerflow.exception.NotFoundException;
+
+import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor
@@ -17,18 +20,26 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/v1?category={category}&sort={sort}&page={page}&size={size}")
-    public Page<MainQuestionDTO> getMainList(Model model,
-                                                      @PathVariable String category,
-                                                      @PathVariable String sort,
-                                                      @PathVariable int page,
-                                                      @PathVariable int size) {
+    public ResponseEntity<Object> getMainList(Model model,
+                                                            @PathVariable String category,
+                                                            @PathVariable String sort,
+                                                            @PathVariable int page,
+                                                            @PathVariable int size) {
         try {
+            if (category == null || category.isEmpty() || sort == null || category.isEmpty() || page < 0 || size < 0) {
+                throw new QueryParameterException("Query Parameter Error : getMainList");
+            }
             Page<MainQuestionDTO> questionDTOList = this.mainService.getMainList(category, sort, page, size);
             model.addAttribute("questionList", questionDTOList);
-            return questionDTOList;
-        } catch (NotFoundException e) {
-            e.printStackTrace();
-            return null;
+            return ResponseEntity.status(HttpStatus.OK).body(questionDTOList);
+        } catch (QueryParameterException e) {
+            HashMap<String, String> error = new HashMap<>();
+            error.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+        } catch (Exception e) {
+            HashMap<String, String> error = new HashMap<>();
+            error.put("message", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
         }
     }
 }

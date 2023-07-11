@@ -19,7 +19,7 @@ public class MainService{
 
     public Page<MainQuestionDTO> getMainList(String category, String sort, int page, int size) {
         try {
-            PageRequest pageRequest = PageRequest.of(page, size, this.getQuestionPageSortClass(sort));
+            PageRequest pageRequest = PageRequest.of(page, size, this.getQuestionPageSortClassByRequestSort(sort));
             Page<Question> questionList = this.mainRepository.findAllByCategory(category, pageRequest);
             return this.mainQuestionDTOMapper.toMainQuestionDTOPage(questionList);
         } catch (Exception e) {
@@ -28,7 +28,7 @@ public class MainService{
         }
     }
 
-    private Sort getQuestionPageSortClass(String sortKeyword) {
+    private Sort getQuestionPageSortClassByRequestSort(String sortKeyword) {
         switch (sortKeyword) {
             case "latest":
                 return Sort.by("createdAt").descending();
