@@ -29,7 +29,7 @@ public class MainController {
                                                             @PathVariable int page,
                                                             @PathVariable int size) {
         try {
-            if (category == null || sort == null || page < 0 || size < 0) {
+            if (category == null || category.isEmpty() || sort == null || category.isEmpty() || page < 0 || size < 0) {
                 throw new QueryParameterException("Query Parameter Error : getMainList");
             }
             Page<MainQuestionDTO> questionDTOList = this.mainService.getMainList(category, sort, page, size);
