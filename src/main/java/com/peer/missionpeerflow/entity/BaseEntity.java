@@ -17,7 +17,7 @@ import javax.persistence.MappedSuperclass;
 @EnableJpaAuditing
 @EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
-	@Column(nullable = false, columnDefinition = "VARCHAR(10)")
+	@Column(nullable = true, columnDefinition = "VARCHAR(10)")
 	protected String nickname;
 
 	@Column(nullable = false, columnDefinition = "VARCHAR(10)")
