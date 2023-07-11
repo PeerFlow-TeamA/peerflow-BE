@@ -1,6 +1,7 @@
 package com.peer.missionpeerflow.controller;
 
 import com.peer.missionpeerflow.dto.response.MainQuestionDTO;
+import com.peer.missionpeerflow.exception.errormessage.ErrorMessage;
 import com.peer.missionpeerflow.service.MainService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.QueryParameterException;
@@ -33,13 +34,9 @@ public class MainController {
             model.addAttribute("questionList", questionDTOList);
             return ResponseEntity.status(HttpStatus.OK).body(questionDTOList);
         } catch (QueryParameterException e) {
-            HashMap<String, String> error = new HashMap<>();
-            error.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(e));
         } catch (Exception e) {
-            HashMap<String, String> error = new HashMap<>();
-            error.put("message", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(e));
         }
     }
 }
