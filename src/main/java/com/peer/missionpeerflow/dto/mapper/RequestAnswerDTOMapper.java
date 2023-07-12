@@ -17,7 +17,7 @@ public interface RequestAnswerDTOMapper {
             @Mapping(target = "password", source = "answerCreateDTO.password"),
             @Mapping(target = "content", source = "answerCreateDTO.content"),
             @Mapping(target = "recommend", ignore = true),
-            @Mapping(target = "isAdopted", ignore = true),
+            @Mapping(target = "isAdopted", constant = "false"),
             @Mapping(target = "createdAt", source = "answerCreateDTO.createdAt"),
             @Mapping(target = "updatedAt", ignore = true),
             @Mapping(target = "answerCommentList", ignore = true),
