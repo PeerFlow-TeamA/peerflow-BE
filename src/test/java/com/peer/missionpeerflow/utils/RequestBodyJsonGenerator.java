@@ -1,11 +1,8 @@
-package com.peer.missionpeerflow;
+package com.peer.missionpeerflow.utils;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.util.Pair;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class RequestBodyJsonGenerator {
     private ArrayList<Pair<String, String>> attributes = new ArrayList<>();

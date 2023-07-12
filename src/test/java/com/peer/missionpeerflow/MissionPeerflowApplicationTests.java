@@ -1,6 +1,6 @@
 package com.peer.missionpeerflow;
 
-import com.peer.missionpeerflow.dto.request.QuestionCreateRequest;
+import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
 import com.peer.missionpeerflow.repository.QuestionRepository;
 import com.peer.missionpeerflow.service.QuestionService;
 import org.junit.jupiter.api.Test;
@@ -20,7 +20,7 @@ class MissionPeerflowApplicationTests {
 
 	@Test
 	void testService() {
-		QuestionCreateRequest questionRequest1 = new QuestionCreateRequest("asdfasdf 어려웡", "jun", "1234", "miniRt", "postman so hard", LocalDateTime.now());
+		QuestionCreateDTO questionRequest1 = new QuestionCreateDTO("asdfasdf 어려웡", "jun", "1234", "miniRt", "postman so hard", LocalDateTime.now());
 		this.questionService.creat(questionRequest1);
 	}
 }
