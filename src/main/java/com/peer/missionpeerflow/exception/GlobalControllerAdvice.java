@@ -1,6 +1,6 @@
 package com.peer.missionpeerflow.exception;
 
-import com.peer.missionpeerflow.exception.errormessage.ErrorMessage;
+import com.peer.missionpeerflow.exception.message.ErrorMessage;
 import org.hibernate.QueryParameterException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,7 +8,6 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.peer.missionpeerflow.exception.errormessage.ErrorMessage;
 
 @RestControllerAdvice
 public class GlobalControllerAdvice {
