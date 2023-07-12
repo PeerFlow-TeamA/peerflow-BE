@@ -2,15 +2,20 @@ package com.peer.missionpeerflow.service;
 
 
 import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
+import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.entity.UserRecord;
+import com.peer.missionpeerflow.exception.NotFoundException;
 import com.peer.missionpeerflow.repository.QuestionRepository;
 import com.peer.missionpeerflow.repository.UserRecordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -37,6 +42,20 @@ public class QuestionService {
         question.setUserRecord(userRecord);
 
         this.questionRepository.save(question);
+    }
+
+    public void modify(@NotNull QuestionModifyDTO questionModifyDTO, Long questionid){
+        Optional<Question> question = this.questionRepository.findById(questionid);
+        if (question.isPresent() == false)
+                throw new NotFoundException("Question not found");
+        if (question.get().getUserRecord().getPassword().compareTo(questionModifyDTO.getPassword()) != 0)
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password is incorrect");
+        question.get().setTitle(questionModifyDTO.getTitle());
+        question.get().setContent(questionModifyDTO.getContent());
+        question.get().setCategory(questionModifyDTO.getCategory());
+        question.get().setUpdatedAt(LocalDateTime.now());
+
+        this.questionRepository.save(question.get());
     }
 }
 
