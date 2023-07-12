@@ -1,6 +1,7 @@
 package com.peer.missionpeerflow.controller;
 
 import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
+import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
 import com.peer.missionpeerflow.exception.errormessage.ErrorMessage;
 import com.peer.missionpeerflow.service.QuestionService;
@@ -31,12 +32,19 @@ public class QuestionController {
         return ResponseEntity.status(HttpStatus.OK).body(success);
     }
 
-
     @PutMapping("/v1/question/{questionid}")
-    public ResponseEntity<Object> create(@Valid @RequestBody QuestionModifyDTO questionModifyDTO, @PathVariable(name = "questionid") Long id) {
+    public ResponseEntity<Object> modify(@Valid @RequestBody QuestionModifyDTO questionModifyDTO, @PathVariable(name = "questionid") Long id) {
         questionService.modify(questionModifyDTO, id);
         HashMap<String, String> success = new HashMap<>();
         success.put("message", "Success to modify a question");
         return ResponseEntity.status(HttpStatus.OK).body(success);
+    }
+
+    @PostMapping("/v1/question/{questionid}")
+    public ResponseEntity<Object> delete(@Valid @RequestBody QuestionDeleteDTO questionDeleteDTO, @PathVariable(name = "questionid") Long id){
+        questionService.delete(questionDeleteDTO, id);
+        HashMap<String, String> success = new HashMap<>();
+        success.put("message", "Success to delete a question");
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(success);
     }
 }
