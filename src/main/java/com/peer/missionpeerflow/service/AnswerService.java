@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.peer.missionpeerflow.repository.AnswerRepository;
 import com.peer.missionpeerflow.dto.request.AnswerCreateDTO;
+import com.peer.missionpeerflow.dto.request.AnswerModifyDTO;
 import com.peer.missionpeerflow.entity.Answer;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.exception.NotFoundException;
@@ -30,5 +31,18 @@ public class AnswerService {
         answer.setContent(answerCreateDTO.getContent());
         answer.setCreatedAt(answerCreateDTO.getCreatedAt());
         this.answerRepository.save(answer);
+    }
+
+    public void modify(AnswerModifyDTO answerModifyDTO, Long answerId) {
+        Optional<Answer> answer = this.answerRepository.findById(answerId);
+        if (answer.isPresent() == false)
+            throw new NotFoundException("Answer not found");
+        if (answerModifyDTO.getPassword().equals(answer.get().getPassword()) == false)
+            throw new NotFoundException("Password not matched");
+
+        Answer foundAnswer = answer.get();
+        foundAnswer.setContent(answerModifyDTO.getContent());
+        foundAnswer.setUpdatedAt(answerModifyDTO.getUpdatedAt());
+        this.answerRepository.save(foundAnswer);
     }
 }
