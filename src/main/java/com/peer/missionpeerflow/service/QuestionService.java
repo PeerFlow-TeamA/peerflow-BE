@@ -47,11 +47,11 @@ public class QuestionService {
     public void modify(@NotNull QuestionModifyDTO questionModifyDTO, Long questionid){
         Optional<Question> question = this.questionRepository.findById(questionid);
         if (question.isPresent() == false)
-                throw new NotFoundException("존재하지 않는 질문입니다.");
+                throw new NotFoundException("Question not found");
         System.out.println(questionModifyDTO.getPassword());
         System.out.println(question.get().getUserRecord().getPassword());
         if (question.get().getUserRecord().getPassword().compareTo(questionModifyDTO.getPassword()) != 0)
-                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password is incorrect");
         question.get().setTitle(questionModifyDTO.getTitle());
         question.get().setContent(questionModifyDTO.getContent());
         question.get().setCategory(questionModifyDTO.getCategory());
