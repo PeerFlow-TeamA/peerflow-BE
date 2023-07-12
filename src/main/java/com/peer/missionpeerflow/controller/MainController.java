@@ -1,7 +1,6 @@
 package com.peer.missionpeerflow.controller;
 
 import com.peer.missionpeerflow.dto.response.MainQuestionDTO;
-import com.peer.missionpeerflow.exception.errormessage.ErrorMessage;
 import com.peer.missionpeerflow.service.MainService;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.QueryParameterException;
@@ -12,8 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor

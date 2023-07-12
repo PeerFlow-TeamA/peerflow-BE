@@ -1,5 +1,6 @@
 package com.peer.missionpeerflow.controller;
 
+import com.peer.missionpeerflow.exception.message.SuccessMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -11,8 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import javax.validation.Valid;
 
-import java.util.HashMap;
-
 
 @Controller
 @RequestMapping("/v1/answer")
@@ -21,10 +20,8 @@ public class AnswerController {
     private final AnswerService answerService;
 
     @PostMapping("")
-    public ResponseEntity<Object> create(@Valid @RequestBody AnswerCreateDTO answerCreateDTO) {
+    public ResponseEntity create(@Valid @RequestBody AnswerCreateDTO answerCreateDTO) {
         answerService.create(answerCreateDTO);
-        HashMap<String, String> success = new HashMap<>();
-        success.put("message", "Success to create a answer");
-        return ResponseEntity.status(HttpStatus.OK).body(success);
+        return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("question created successfully"));
     }
 }
