@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import com.peer.missionpeerflow.controller.AnswerController;
-
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
@@ -21,6 +20,7 @@ import static org.mockito.Mockito.when;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
@@ -47,7 +47,7 @@ public class MissionPeerFlowAnswerAPITests {
         questionRepository.save(question);
 
         Long questionId = question.getQuestionId();
-        AnswerCreateDTO answerRequest1 = new AnswerCreateDTO(questionId, "jun", "1234", "postman so hard", "2021-06-01T00:00:00");
+        AnswerCreateDTO answerRequest1 = new AnswerCreateDTO(questionId, "jun", "1234", "postman so hard", "2021-06-01/00:00:00");
 
         ResponseEntity expected = ResponseEntity.status(HttpStatus.CREATED).body("Answer created successfully");
         when(answerController.create(answerRequest1)).thenReturn(expected);
@@ -57,7 +57,7 @@ public class MissionPeerFlowAnswerAPITests {
 
     @Test
     void C_DET_01_service_RED_00() {
-        AnswerCreateDTO answerRequest1 = new AnswerCreateDTO(0L, "jun", "1234", "postman so hard", "2021-06-01T00:00:00");
+        AnswerCreateDTO answerRequest1 = new AnswerCreateDTO(0L, "jun", "1234", "postman so hard", "2021-06-01/00:00:00");
 
         ResponseEntity expected = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Question not found");
         when(answerController.create(answerRequest1)).thenReturn(expected);
