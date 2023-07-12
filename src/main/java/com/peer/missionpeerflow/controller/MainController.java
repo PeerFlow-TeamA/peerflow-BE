@@ -26,17 +26,11 @@ public class MainController {
                                                             @PathVariable String sort,
                                                             @PathVariable int page,
                                                             @PathVariable int size) {
-        try {
-            if (category == null || category.isEmpty() || sort == null || category.isEmpty() || page < 0 || size < 0) {
-                throw new QueryParameterException("Query Parameter Error : getMainList");
-            }
-            Page<MainQuestionDTO> questionDTOList = this.mainService.getMainList(category, sort, page, size);
-            model.addAttribute("questionList", questionDTOList);
-            return ResponseEntity.status(HttpStatus.OK).body(questionDTOList);
-        } catch (QueryParameterException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorMessage(e));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ErrorMessage(e));
+        if (category == null || category.isEmpty() || sort == null || category.isEmpty() || page < 0 || size < 0) {
+            throw new QueryParameterException("Query Parameter Error : getMainList");
         }
+        Page<MainQuestionDTO> questionDTOList = this.mainService.getMainList(category, sort, page, size);
+        model.addAttribute("questionList", questionDTOList);
+        return ResponseEntity.status(HttpStatus.OK).body(questionDTOList);
     }
 }

@@ -1,6 +1,5 @@
 package com.peer.missionpeerflow.exception.errormessage;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,5 +10,9 @@ public class ErrorMessage {
 
     public ErrorMessage(Exception e) {
         this.message = e.getMessage();
+    }
+
+    public static ErrorMessage of(Exception e) {
+        return new ErrorMessage(e);
     }
 }
