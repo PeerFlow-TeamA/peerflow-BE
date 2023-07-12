@@ -48,8 +48,6 @@ public class QuestionService {
         Optional<Question> question = this.questionRepository.findById(questionid);
         if (question.isPresent() == false)
                 throw new NotFoundException("Question not found");
-        System.out.println(questionModifyDTO.getPassword());
-        System.out.println(question.get().getUserRecord().getPassword());
         if (question.get().getUserRecord().getPassword().compareTo(questionModifyDTO.getPassword()) != 0)
                 throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password is incorrect");
         question.get().setTitle(questionModifyDTO.getTitle());
