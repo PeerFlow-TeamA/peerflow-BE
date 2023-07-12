@@ -24,24 +24,7 @@ public class MissionPeerFlowAnswerAPITests {
 
     @Test
     void C_DET_01_service_green_00() throws Exception {
-//        Question question = new Question();
-//        question.setTitle("postman so hard");
-//        question.setCreatedAt(LocalDateTime.now());
-//        question.setNickname("jun");
-//        question.setPassword("1234");
-//        question.setCategory(Category.minishell);
-//        question.setContent("postman so hard");
-//        question.setView(0L);
-//        question.setRecommend(0L);
-//        questionRepository.save(question);
-//
-//        Long questionId = question.getQuestionId();
-//        AnswerCreateDTO answerRequest1 = new AnswerCreateDTO(questionId, "jun", "1234", "postman so hard", "2021-06-01/00:00:00");
-//
-//        ResponseEntity expected = ResponseEntity.status(HttpStatus.CREATED).body("Answer created successfully");
-//        when(answerController.create(answerRequest1)).thenReturn(expected);
-//
-//        assertTrue(answerController.create(answerRequest1).equals(expected));
+
         String question_requestBody = requestBodyJsonGenerator
                 .addAttribute("title", "postman so hard")
                 .addAttribute("nickname", "jun")
@@ -50,6 +33,7 @@ public class MissionPeerFlowAnswerAPITests {
                 .addAttribute("content", "postman so hard")
                 .addAttribute("createdAt", "2021-06-01/00:00:00")
                 .toJson();
+
         MvcResult result = mockMvc.perform(
                             MockMvcRequestBuilders.post("/v1/question")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -66,23 +50,34 @@ public class MissionPeerFlowAnswerAPITests {
                 .addAttribute("content", "postman so hard")
                 .addAttribute("createdAt", "2021-06-01/00:00:00")
                 .toJson();
+
         MvcResult resultAnswer = mockMvc.perform(
                         MockMvcRequestBuilders.post("/v1/answer")
                             .contentType(MediaType.APPLICATION_JSON)
                             .content(answer_requestBody)
                         ).andReturn();
 
-        assertTrue(resultAnswer.getResponse().getStatus() == 201);
+        assertTrue(resultAnswer.getResponse().getStatus() == HttpStatus.CREATED.value());
         assertTrue(resultAnswer.getResponse().getContentAsString().equals("{\"message\":\"Answer created successfully\"}"));
     }
 
     @Test
-    void C_DET_01_service_RED_00() {
-//        AnswerCreateDTO answerRequest1 = new AnswerCreateDTO(0L, "jun", "1234", "postman so hard", "2021-06-01/00:00:00");
-//
-//        ResponseEntity expected = ResponseEntity.status(HttpStatus.NOT_FOUND).body("Question not found");
-//        when(answerController.create(answerRequest1, ).thenReturn(expected);
-//
-//        assertTrue(answerController.create(answerRequest1).equals(expected));
+    void C_DET_01_service_RED_00() throws Exception {
+        String answer_requestBody = requestBodyJsonGenerator
+                .addAttribute("questionId", "1")
+                .addAttribute("nickname", "jun")
+                .addAttribute("password", "1234")
+                .addAttribute("content", "postman so hard")
+                .addAttribute("createdAt", "2021-06-01/00:00:00")
+                .toJson();
+
+        MvcResult resultAnswer = mockMvc.perform(
+                MockMvcRequestBuilders.post("/v1/answer")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(answer_requestBody)
+        ).andReturn();
+
+        assertTrue(resultAnswer.getResponse().getStatus() == HttpStatus.NOT_FOUND.value());
+        assertTrue(resultAnswer.getResponse().getContentAsString().equals("{\"message\":\"Question not found\"}"));
     }
 }
