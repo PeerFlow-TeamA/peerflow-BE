@@ -18,14 +18,14 @@ public class MainService{
     private final MainQuestionDTOMapper mainQuestionDTOMapper;
 
     public Page<MainQuestionDTO> getMainList(String category, String sort, int page, int size) {
-        try {
-            PageRequest pageRequest = PageRequest.of(page, size, this.getQuestionPageSortClassByRequestSort(sort));
-            Page<Question> questionList = this.mainRepository.findAllByCategory(category, pageRequest);
-            return this.mainQuestionDTOMapper.toMainQuestionDTOPage(questionList);
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new NotFoundException("Not Found : getMainList");
+        PageRequest pageRequest = PageRequest.of(page, size, this.getQuestionPageSortClassByRequestSort(sort));
+        Page<Question> questionList;
+        if (category.equals("all")) {
+            questionList = this.mainRepository.findAll(pageRequest);
+        } else {
+            questionList = this.mainRepository.findAllByCategory(category, pageRequest);
         }
+        return this.mainQuestionDTOMapper.toMainQuestionDTOPage(questionList);
     }
 
     private Sort getQuestionPageSortClassByRequestSort(String sortKeyword) {
@@ -40,6 +40,4 @@ public class MainService{
                 return Sort.by("id").descending();
         }
     }
-
-
 }
