@@ -4,10 +4,10 @@ import org.springframework.data.util.Pair;
 
 import java.util.ArrayList;
 
-public class RequestBodyJsonGenerator {
+public class RequestBodyJSONGenerator {
     private ArrayList<Pair<String, String>> attributes = new ArrayList<>();
 
-    public RequestBodyJsonGenerator addAttribute(String key, Object value) {
+    public RequestBodyJSONGenerator addAttribute(String key, Object value) {
         attributes.add(Pair.of(key, value.toString()));
         return this;
     }
@@ -15,18 +15,14 @@ public class RequestBodyJsonGenerator {
     public String toJson() {
         StringBuilder sb = new StringBuilder();
         sb.append("{");
-        for (int i = 0; i < attributes.size(); i++) {
-            Pair<String, String> attribute = attributes.get(i);
+        for (Pair<String, String> attribute : attributes) {
             sb.append("\"");
             sb.append(attribute.getFirst());
-            sb.append("\":");
-            sb.append("\"");
+            sb.append("\":\"");
             sb.append(attribute.getSecond());
-            sb.append("\"");
-            if (i != attributes.size() - 1) {
-                sb.append(", ");
-            }
+            sb.append("\",");
         }
+        sb.deleteCharAt(sb.length() - 1);
         sb.append("}");
         String result = sb.toString();
         attributes.clear();

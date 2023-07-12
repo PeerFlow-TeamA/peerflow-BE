@@ -1,7 +1,7 @@
 package com.peer.missionpeerflow;
 
 
-import com.peer.missionpeerflow.utils.RequestBodyJsonGenerator;
+import com.peer.missionpeerflow.utils.RequestBodyJSONGenerator;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -21,7 +21,7 @@ public class MissionPeerFlowAnswerAPITests {
     @Autowired
     private MockMvc mockMvc;
 
-    private RequestBodyJsonGenerator requestBodyJsonGenerator = new RequestBodyJsonGenerator();
+    private RequestBodyJSONGenerator requestBodyJsonGenerator = new RequestBodyJSONGenerator();
 
     @Test
     void C_DET_01_service_green_00() throws Exception {
