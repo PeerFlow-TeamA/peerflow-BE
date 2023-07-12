@@ -2,6 +2,7 @@ package com.peer.missionpeerflow.service;
 
 
 
+import com.peer.missionpeerflow.dto.mapper.RequestAnswerDTOMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,34 +21,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class AnswerService {
     private final AnswerRepository answerRepository;
+    private final RequestAnswerDTOMapper requestAnswerDTOMapper;
     private final QuestionRepository questionRepository;
 
     public void create(AnswerCreateDTO answerCreateDTO) {
-        Answer answer = new Answer();
-
-        Optional<Question> question = this.questionRepository.findById(answerCreateDTO.getQuestionId());
-        if (question.isPresent() == false)
+        Optional<Question> foundQuestion = this.questionRepository.findById(answerCreateDTO.getQuestionId());
+        if (foundQuestion.isPresent() == false)
             throw new NotFoundException("Question not found");
 
-        answer.setQuestion(question.get());
-        answer.setNickname(answerCreateDTO.getNickname());
-        answer.setPassword(answerCreateDTO.getPassword());
-        answer.setContent(answerCreateDTO.getContent());
-        answer.setCreatedAt(answerCreateDTO.getCreatedAt());
-        this.answerRepository.save(answer);
+        Answer saveEntiry = this.requestAnswerDTOMapper.toEntity(answerCreateDTO);
+        this.answerRepository.save(saveEntiry);
     }
 
     public void modify(AnswerModifyDTO answerModifyDTO, Long answerId) {
-        Optional<Answer> answer = this.answerRepository.findById(answerId);
-        if (answer.isPresent() == false)
+        Optional<Answer> foundAnswer = this.answerRepository.findById(answerId);
+        if (foundAnswer.isPresent() == false)
             throw new NotFoundException("Answer not found");
-        if (answerModifyDTO.getPassword().equals(answer.get().getPassword()) == false)
+        if (answerModifyDTO.getPassword().equals(foundAnswer.get().getPassword()) == false)
             throw new NotFoundException("Password not matched");
 
-        Answer foundAnswer = answer.get();
-        foundAnswer.setContent(answerModifyDTO.getContent());
-        foundAnswer.setUpdatedAt(answerModifyDTO.getUpdatedAt());
-        this.answerRepository.save(foundAnswer);
+        Answer saveEntity = this.requestAnswerDTOMapper.toEntity(answerModifyDTO, foundAnswer.get());
+        this.answerRepository.save(saveEntity);
     }
 
     public void delete(AnswerDeleteDTO answerDeleteDTO, Long answerId) {
@@ -56,7 +50,6 @@ public class AnswerService {
             throw new NotFoundException("Answer not found");
         if (answerDeleteDTO.getPassword().equals(answer.get().getPassword()) == false)
             throw new NotFoundException("Password not matched");
-
         this.answerRepository.delete(answer.get());
     }
 }
