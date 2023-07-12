@@ -8,7 +8,7 @@ import org.mapstruct.Mappings;
 import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 
-@Mapper(unmappedTargetPolicy = org.mapstruct.ReportingPolicy.IGNORE)
+@Mapper(componentModel = "spring")
 public interface MainQuestionDTOMapper {
     MainQuestionDTOMapper INSTANCE = Mappers.getMapper(MainQuestionDTOMapper.class);
 
