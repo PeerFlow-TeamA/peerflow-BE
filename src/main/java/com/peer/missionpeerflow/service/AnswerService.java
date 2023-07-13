@@ -34,22 +34,26 @@ public class AnswerService {
     }
 
     public void modify(AnswerModifyDTO answerModifyDTO, Long answerId) {
-        Optional<Answer> foundAnswer = this.answerRepository.findById(answerId);
-        if (foundAnswer.isPresent() == false)
-            throw new NotFoundException("Answer not found");
-        if (answerModifyDTO.getPassword().equals(foundAnswer.get().getPassword()) == false)
+        Answer foundAnswer = this.findAnswerByAnswerId(answerId);
+        if (answerModifyDTO.getPassword().equals(foundAnswer.getPassword()) == false)
             throw new NotFoundException("Password not matched");
-
-        Answer saveEntity = this.requestAnswerDTOMapper.toEntity(answerModifyDTO, foundAnswer.get());
+        Answer saveEntity = this.requestAnswerDTOMapper.toEntity(answerModifyDTO, foundAnswer);
         this.answerRepository.save(saveEntity);
     }
 
     public void delete(AnswerDeleteDTO answerDeleteDTO, Long answerId) {
+        Answer foundAnswer = this.findAnswerByAnswerId(answerId);
+        if (answerDeleteDTO.getPassword().equals(foundAnswer.getPassword()) == false)
+            throw new NotFoundException("Password not matched");
+        if (answerDeleteDTO.getPassword().equals(foundAnswer.getPassword()) == false)
+            throw new NotFoundException("Password not matched");
+        this.answerRepository.delete(foundAnswer);
+    }
+
+    public Answer findAnswerByAnswerId(Long answerId) {
         Optional<Answer> answer = this.answerRepository.findById(answerId);
         if (answer.isPresent() == false)
             throw new NotFoundException("Answer not found");
-        if (answerDeleteDTO.getPassword().equals(answer.get().getPassword()) == false)
-            throw new NotFoundException("Password not matched");
-        this.answerRepository.delete(answer.get());
+        return answer.get();
     }
 }
