@@ -15,8 +15,10 @@ public class UserRecord {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+
+    @Column(columnDefinition = "varchar(20)")
     private String nickname;
-    @Column(nullable = false)
+
+    @Column(columnDefinition = "varchar(30)", nullable = false)
     private String password;
 }
