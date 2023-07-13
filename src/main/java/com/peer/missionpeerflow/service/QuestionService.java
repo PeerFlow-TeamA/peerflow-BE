@@ -2,9 +2,11 @@ package com.peer.missionpeerflow.service;
 
 
 import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
+import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.entity.UserRecord;
+import com.peer.missionpeerflow.exception.ForbiddenException;
 import com.peer.missionpeerflow.exception.NotFoundException;
 import com.peer.missionpeerflow.repository.QuestionRepository;
 import com.peer.missionpeerflow.repository.UserRecordRepository;
@@ -49,13 +51,25 @@ public class QuestionService {
         if (question.isPresent() == false)
                 throw new NotFoundException("Question not found");
         if (question.get().getUserRecord().getPassword().compareTo(questionModifyDTO.getPassword()) != 0)
-                throw new ResponseStatusException(HttpStatus.FORBIDDEN, "Password is incorrect");
+                throw new ForbiddenException("Password is incorrect");
+
         question.get().setTitle(questionModifyDTO.getTitle());
         question.get().setContent(questionModifyDTO.getContent());
         question.get().setCategory(questionModifyDTO.getCategory());
         question.get().setUpdatedAt(LocalDateTime.now());
 
         this.questionRepository.save(question.get());
+    }
+
+    public void delete(@NotNull QuestionDeleteDTO questionDeleteDTO, Long questionid) {
+        Optional<Question> question = this.questionRepository.findById(questionid);
+        if (question.isPresent() == false)
+                throw new NotFoundException("Question not found");
+        if (question.get().getUserRecord().getPassword().compareTo(questionDeleteDTO.getPassword()) != 0)
+                throw new ForbiddenException("Password is incorrect");
+
+        this.questionRepository.deleteById(questionid);
+
     }
 }
 
