@@ -15,4 +15,10 @@ public class ErrorMessage {
     public static ErrorMessage of(Exception e) {
         return new ErrorMessage(e);
     }
+
+    public static ErrorMessage of(String message) {
+        ErrorMessage errorMessage = new ErrorMessage();
+        errorMessage.message = message;
+        return errorMessage;
+    }
 }
