@@ -43,5 +43,4 @@ public class Question extends BaseEntity {
 
 	@OneToOne
 	private UserRecord userRecord;
-
 }

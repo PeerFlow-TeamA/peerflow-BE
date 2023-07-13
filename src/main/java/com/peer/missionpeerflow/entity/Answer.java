@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,7 +32,7 @@ public class Answer extends BaseEntity {
 
 	@NotNull
 	@ManyToOne
-	@JoinColumn(name = "question_id")
+	@JoinColumn(name = "questionId")
 	private Question question;
 
 	@Column(nullable = false)
@@ -42,5 +43,4 @@ public class Answer extends BaseEntity {
 
 	@OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AnswerComment> answerCommentList = new ArrayList<>();
-
 }

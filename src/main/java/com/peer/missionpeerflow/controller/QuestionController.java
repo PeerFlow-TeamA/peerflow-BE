@@ -4,7 +4,7 @@ import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
 import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
 import com.peer.missionpeerflow.dto.response.QuestionDetailDTO;
-import com.peer.missionpeerflow.exception.errormessage.ErrorMessage;
+import com.peer.missionpeerflow.exception.message.SuccessMessage;
 import com.peer.missionpeerflow.service.QuestionService;
 
 import lombok.RequiredArgsConstructor;
@@ -26,9 +26,7 @@ public class QuestionController {
     @PostMapping("/v1/question")
     public ResponseEntity<Object> create(@Valid @RequestBody QuestionCreateDTO questionCreateDTO) {
         questionService.creat(questionCreateDTO);
-        HashMap<String, String> success = new HashMap<>();
-        success.put("message", "Success to create a question");
-        return ResponseEntity.status(HttpStatus.OK).body(success);
+        return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("Question created successfully"));
     }
 
     @GetMapping("/v1/question/{questionid}")
@@ -41,13 +39,11 @@ public class QuestionController {
     @PutMapping("/v1/question/{questionid}")
     public ResponseEntity<Object> modify(@Valid @RequestBody QuestionModifyDTO questionModifyDTO, @PathVariable(name = "questionid") Long id) {
         questionService.modify(questionModifyDTO, id);
-        HashMap<String, String> success = new HashMap<>();
-        success.put("message", "Success to modify a question");
-        return ResponseEntity.status(HttpStatus.OK).body(success);
+        return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("question modified successfully"));
     }
 
     @PostMapping("/v1/question/{questionid}")
-    public ResponseEntity<Object> delete(@Valid @RequestBody QuestionDeleteDTO questionDeleteDTO, @PathVariable(name = "questionid") Long id){
+    public ResponseEntity<Object> delete(@Valid @RequestBody QuestionDeleteDTO questionDeleteDTO, @PathVariable(name = "questionid") Long id) {
         questionService.delete(questionDeleteDTO, id);
         HashMap<String, String> success = new HashMap<>();
         success.put("message", "Success to delete a question");

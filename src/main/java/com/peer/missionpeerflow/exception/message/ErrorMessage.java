@@ -1,4 +1,4 @@
-package com.peer.missionpeerflow.exception.errormessage;
+package com.peer.missionpeerflow.exception.message;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
