@@ -1,9 +1,12 @@
 package com.peer.missionpeerflow.service;
 
 
+import com.peer.missionpeerflow.dto.mapper.MainQuestionDTOMapper;
+import com.peer.missionpeerflow.dto.mapper.QuestionDetailDTOMapper;
 import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
 import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
+import com.peer.missionpeerflow.dto.response.QuestionDetailDTO;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.entity.UserRecord;
 import com.peer.missionpeerflow.exception.ForbiddenException;
@@ -24,6 +27,7 @@ import java.util.Optional;
 public class QuestionService {
     private final QuestionRepository questionRepository;
     private final UserRecordRepository userRecordRepository;
+    private final QuestionDetailDTOMapper questionDetailDTOMapper;
 
     public void creat(@NotNull QuestionCreateDTO questionCreateRequest){
         UserRecord userRecord = new UserRecord();
@@ -61,15 +65,21 @@ public class QuestionService {
         this.questionRepository.save(question.get());
     }
 
-    public void delete(@NotNull QuestionDeleteDTO questionDeleteDTO, Long questionid) {
-        Optional<Question> question = this.questionRepository.findById(questionid);
+    public void delete(@NotNull QuestionDeleteDTO questionDeleteDTO, Long id) {
+        Optional<Question> question = this.questionRepository.findById(id);
         if (question.isPresent() == false)
                 throw new NotFoundException("Question not found");
         if (question.get().getUserRecord().getPassword().compareTo(questionDeleteDTO.getPassword()) != 0)
                 throw new ForbiddenException("Password is incorrect");
 
-        this.questionRepository.deleteById(questionid);
+        this.questionRepository.deleteById(id);
+    }
 
+    public QuestionDetailDTO getQuestionDetail(Long id){
+        Optional<Question> question = this.questionRepository.findById(id);
+        if (question.isPresent() == false)
+                throw new NotFoundException("Question not found");
+        return this.questionDetailDTOMapper.toDTO(question.get());
     }
 }
 
