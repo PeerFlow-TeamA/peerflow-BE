@@ -45,8 +45,6 @@ public class QuestionController {
     @PostMapping("/v1/question/{questionid}")
     public ResponseEntity<Object> delete(@Valid @RequestBody QuestionDeleteDTO questionDeleteDTO, @PathVariable(name = "questionid") Long id) {
         questionService.delete(questionDeleteDTO, id);
-        HashMap<String, String> success = new HashMap<>();
-        success.put("message", "Success to delete a question");
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(success);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(SuccessMessage.of("question deleted successfully"));
     }
 }
