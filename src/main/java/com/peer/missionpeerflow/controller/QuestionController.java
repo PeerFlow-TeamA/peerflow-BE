@@ -3,6 +3,7 @@ package com.peer.missionpeerflow.controller;
 import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
 import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
+import com.peer.missionpeerflow.dto.response.QuestionDetailDTO;
 import com.peer.missionpeerflow.exception.errormessage.ErrorMessage;
 import com.peer.missionpeerflow.service.QuestionService;
 
@@ -10,10 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -30,6 +29,13 @@ public class QuestionController {
         HashMap<String, String> success = new HashMap<>();
         success.put("message", "Success to create a question");
         return ResponseEntity.status(HttpStatus.OK).body(success);
+    }
+
+    @GetMapping("/v1/question/{questionid}")
+    public ResponseEntity<Object> detail(Model model, @PathVariable(name = "questionid") Long id) {
+        QuestionDetailDTO questionDetailDTO = this.questionService.getQuestionDetail(id);
+        model.addAttribute("questionDetail", questionDetailDTO);
+        return ResponseEntity.status(HttpStatus.OK).body(questionDetailDTO);
     }
 
     @PutMapping("/v1/question/{questionid}")
