@@ -69,7 +69,13 @@ public class QuestionService {
                 throw new ForbiddenException("Password is incorrect");
 
         this.questionRepository.deleteById(questionid);
+    }
 
+    public Question findQuestionByQuestionId(Long questionId) {
+        Optional<Question> question = this.questionRepository.findById(questionId);
+        if (question.isPresent() == false)
+            throw new NotFoundException("Question not found");
+        return question.get();
     }
 }
 
