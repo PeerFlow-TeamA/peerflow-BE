@@ -19,6 +19,8 @@ bin/
 
 ### IntelliJ IDEA ###
 .idea
+.gradle
+build
 *.iws
 *.iml
 *.ipr
@@ -38,4 +40,4 @@ out/
 
 .env
 
-UserRecord*
+
