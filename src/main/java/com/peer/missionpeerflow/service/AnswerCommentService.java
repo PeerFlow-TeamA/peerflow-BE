@@ -2,6 +2,7 @@ package com.peer.missionpeerflow.service;
 
 import com.peer.missionpeerflow.dto.mapper.RequestUserRecordDTOMapper;
 import com.peer.missionpeerflow.dto.request.AnswerCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.AnswerCommentDeleteDTO;
 import com.peer.missionpeerflow.dto.request.AnswerCommentModifyDTO;
 import com.peer.missionpeerflow.exception.NotFoundException;
 import com.peer.missionpeerflow.entity.UserRecord;
@@ -46,6 +47,17 @@ public class AnswerCommentService {
                 .content(answerCommentModifyDTO.getContent())
                 .build();
         this.answerCommnetRepository.save(modifiedAnswerComment);
+    }
+
+    @Transactional
+    public void delete(AnswerCommentDeleteDTO answerCommentDeleteDTO, Long answerId, Long answerCommentId) {
+        Answer foundAnswer = this.answerService.findAnswerByAnswerId(answerId);
+        AnswerComment foundAnswerComment = this.findByAnswerCommentId(answerCommentId);
+        if (foundAnswerComment.getAnswer().getAnswerId().equals(foundAnswer.getAnswerId()) == false)
+            throw new NotFoundException("Comment on answer not found");
+        if (foundAnswerComment.getAnswer().getPassword().equals(answerCommentDeleteDTO.getPassword()) == false)
+            throw new NotFoundException("Password incorrect");
+        this.answerCommnetRepository.delete(foundAnswerComment);
     }
 
     @Transactional(readOnly = true)
