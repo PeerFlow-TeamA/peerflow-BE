@@ -39,7 +39,7 @@ public class AnswerCommentController {
         if (bindingResult.hasErrors()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.of("Error occurred while Request Body Validation"));
         }
-
+        answerCommentService.modify(answerCommentModifyDTO, answerId, answerCommentId);
         return ResponseEntity.status(HttpStatus.CREATED).body(SuccessMessage.of("Comment on answer modified successfully"));
     }
 
