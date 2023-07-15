@@ -49,6 +49,7 @@ public class QuestionCommentService {
         comment.setUpdatedAt(LocalDateTime.parse(questionCommentModifyDTO.getUpdatedAt(), DateTimeFormatter.ofPattern("yyyy-MM-dd/HH:mm:ss")));
     }
 
+    @Transactional
     private QuestionComment findByCommentId(Long commentId){
         Optional<QuestionComment> comment = this.questionCommentRepository.findById(commentId);
         if (comment.isPresent() == false)
