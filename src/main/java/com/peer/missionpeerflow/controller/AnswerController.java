@@ -1,5 +1,6 @@
 package com.peer.missionpeerflow.controller;
 
+import com.peer.missionpeerflow.exception.message.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -27,7 +28,7 @@ public class AnswerController {
     @PostMapping("")
     public ResponseEntity create(@Valid @RequestBody AnswerCreateDTO answerCreateDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(SuccessMessage.of("Error occurred while Request Body Validation"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.of("Error occurred while Request Body Validation"));
         }
         answerService.create(answerCreateDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(SuccessMessage.of("Answer created successfully"));
@@ -36,7 +37,7 @@ public class AnswerController {
     @PutMapping("/{answerId}")
     public ResponseEntity modify(@Valid @RequestBody AnswerModifyDTO answerModifyDTO, @PathVariable(name = "answerId") Long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(SuccessMessage.of("Error occurred while Request Body Validation"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.of("Error occurred while Request Body Validation"));
         }
         answerService.modify(answerModifyDTO, id);
         return ResponseEntity.status(HttpStatus.CREATED).body(SuccessMessage.of("Answer modified successfully"));
@@ -45,7 +46,7 @@ public class AnswerController {
     @PostMapping("/{answerId}")
     public ResponseEntity delete(@Valid @RequestBody AnswerDeleteDTO answerDeleteDTO, @PathVariable(name = "answerId") Long id, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(SuccessMessage.of("Error occurred while Request Body Validation"));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.of("Error occurred while Request Body Validation"));
         }
         answerService.delete(answerDeleteDTO, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(SuccessMessage.of("Answer deleted successfully"));
