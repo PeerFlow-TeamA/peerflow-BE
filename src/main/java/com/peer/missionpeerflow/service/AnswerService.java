@@ -50,4 +50,8 @@ public class AnswerService {
             throw new NotFoundException("Answer not found");
         return answer.get();
     }
+
+    protected void save(Answer answer) {
+        this.answerRepository.save(answer);
+    }
 }

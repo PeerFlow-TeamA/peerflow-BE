@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Getter
+@NoArgsConstructor
 @Table(name = "answer_comment")
 @Entity
 public class AnswerComment extends BaseEntity {

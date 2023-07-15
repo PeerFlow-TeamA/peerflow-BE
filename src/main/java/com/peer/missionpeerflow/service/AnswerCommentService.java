@@ -32,6 +32,9 @@ public class AnswerCommentService {
                 .writer(savedUserRecord)
                 .content(answerCommentCreateDTO.getContent())
                 .build();
+        foundAnswer.getAnswerCommentList().add(saveEntity);
+
+        this.answerService.save(foundAnswer);
         this.answerCommnetRepository.save(saveEntity);
     }
 
@@ -41,22 +44,26 @@ public class AnswerCommentService {
         if (answerCommentModifyDTO.getPassword().equals(foundAnswer.getPassword()) == false)
             throw new NotFoundException("Password incorrect");
         AnswerComment oldAnswerComment = this.findByAnswerCommentId(answerCommentId);
-        AnswerComment modifiedAnswerComment = AnswerComment.builder()
-                .answer(foundAnswer)
-                .writer(oldAnswerComment.getWriter())
-                .content(answerCommentModifyDTO.getContent())
-                .build();
-        this.answerCommnetRepository.save(modifiedAnswerComment);
+        oldAnswerComment.setContent(answerCommentModifyDTO.getContent());
+
+        this.answerService.save(foundAnswer);
+        this.answerCommnetRepository.save(oldAnswerComment);
     }
 
     @Transactional
     public void delete(AnswerCommentDeleteDTO answerCommentDeleteDTO, Long answerId, Long answerCommentId) {
         Answer foundAnswer = this.answerService.findAnswerByAnswerId(answerId);
-        AnswerComment foundAnswerComment = this.findByAnswerCommentId(answerCommentId);
-        if (foundAnswerComment.getAnswer().getAnswerId().equals(foundAnswer.getAnswerId()) == false)
-            throw new NotFoundException("Comment on answer not found");
-        if (foundAnswerComment.getAnswer().getPassword().equals(answerCommentDeleteDTO.getPassword()) == false)
+
+        AnswerComment foundAnswerComment = foundAnswer.getAnswerCommentList().stream()
+                .filter(answerComment -> answerComment.getAnswerCommentId().equals(answerCommentId))
+                .findFirst()
+                .orElseThrow(() -> new NotFoundException("Comment on answer not found"));
+
+        if (answerCommentDeleteDTO.getPassword().equals(foundAnswerComment.getWriter().getPassword()) == false)
             throw new NotFoundException("Password incorrect");
+
+        foundAnswer.getAnswerCommentList().remove(foundAnswerComment);
+        this.answerService.save(foundAnswer);
         this.answerCommnetRepository.delete(foundAnswerComment);
     }
 
