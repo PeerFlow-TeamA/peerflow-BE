@@ -1,6 +1,7 @@
 package com.peer.missionpeerflow.controller;
 
 import com.peer.missionpeerflow.dto.request.QuestionCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.QuestionCommentDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionCommentModifyDTO;
 import com.peer.missionpeerflow.entity.QuestionComment;
 import com.peer.missionpeerflow.exception.message.SuccessMessage;
@@ -31,5 +32,11 @@ public class QuestionCommentController {
     public ResponseEntity<Object> modify(@Valid @RequestBody QuestionCommentModifyDTO questionCommentModifyDTO, @PathVariable(name = "questionId") Long questionId, @PathVariable(name = "commentId") Long commentId){
         this.questionCommentService.modify(questionCommentModifyDTO, questionId, commentId);
         return ResponseEntity.status(HttpStatus.CREATED).body(SuccessMessage.of("comment on question modified successfully"));
+    }
+
+    @PostMapping("v1/question/{questionId}/comment/{commentId}")
+    public ResponseEntity<Object> delete(@Valid @RequestBody QuestionCommentDeleteDTO questionCommentDeleteDTO, @PathVariable(name = "questionId") Long questionId, @PathVariable(name = "commentId") Long commentId){
+        this.questionCommentService.delete(questionCommentDeleteDTO, questionId, commentId);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body("comment on question deleted successfully");
     }
 }

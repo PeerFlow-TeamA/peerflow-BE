@@ -1,6 +1,7 @@
 package com.peer.missionpeerflow.service;
 
 import com.peer.missionpeerflow.dto.request.QuestionCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.QuestionCommentDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionCommentModifyDTO;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.entity.QuestionComment;
@@ -50,10 +51,19 @@ public class QuestionCommentService {
     }
 
     @Transactional
-    private QuestionComment findByCommentId(Long commentId){
+    protected QuestionComment findByCommentId(Long commentId){
         Optional<QuestionComment> comment = this.questionCommentRepository.findById(commentId);
         if (comment.isPresent() == false)
             throw new NotFoundException("question comment not found");
         return comment.get();
+    }
+
+    @Transactional
+    public void delete(QuestionCommentDeleteDTO questionCommentDeleteDTO, Long questionId, Long commentId){
+        Question question = this.questionService.findQuestionByQuestionId(questionId);
+        QuestionComment comment = this.findByCommentId(commentId);
+        if(comment.getUserRecord().getPassword().equals(questionCommentDeleteDTO.getPassword()) == false)
+            throw new ForbiddenException("Password is incorrect");
+        this.questionCommentRepository.deleteById(commentId);
     }
 }
