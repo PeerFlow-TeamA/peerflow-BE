@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -17,6 +18,7 @@ public class MainService{
     private final MainRepository mainRepository;
     private final MainQuestionDTOMapper mainQuestionDTOMapper;
 
+    @Transactional
     public Page<MainQuestionDTO> getMainList(String category, String sort, int page, int size) {
         PageRequest pageRequest = PageRequest.of(page, size, this.getQuestionPageSortClassByRequestSort(sort));
         Page<Question> questionList;
@@ -28,7 +30,8 @@ public class MainService{
         return this.mainQuestionDTOMapper.toMainQuestionDTOPage(questionList);
     }
 
-    private Sort getQuestionPageSortClassByRequestSort(String sortKeyword) {
+    @Transactional
+    protected Sort getQuestionPageSortClassByRequestSort(String sortKeyword) {
         switch (sortKeyword) {
             case "latest":
                 return Sort.by("createdAt").descending();
