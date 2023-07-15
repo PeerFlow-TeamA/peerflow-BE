@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import com.peer.missionpeerflow.repository.AnswerRepository;
-import com.peer.missionpeerflow.dto.request.AnswerCreateDTO;
-import com.peer.missionpeerflow.dto.request.AnswerModifyDTO;
-import com.peer.missionpeerflow.dto.request.AnswerDeleteDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerCreateDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerModifyDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerDeleteDTO;
 import com.peer.missionpeerflow.entity.Answer;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.exception.NotFoundException;

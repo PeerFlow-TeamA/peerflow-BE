@@ -2,9 +2,9 @@ package com.peer.missionpeerflow.service;
 
 import com.peer.missionpeerflow.dto.mapper.QuestionDetailAnswerDTOMapper;
 import com.peer.missionpeerflow.dto.mapper.QuestionDetailDTOMapper;
-import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
-import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
-import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
+import com.peer.missionpeerflow.dto.request.question.QuestionCreateDTO;
+import com.peer.missionpeerflow.dto.request.question.QuestionDeleteDTO;
+import com.peer.missionpeerflow.dto.request.question.QuestionModifyDTO;
 import com.peer.missionpeerflow.dto.response.QuestionDetailAnswerDTO;
 import com.peer.missionpeerflow.dto.response.QuestionDetailDTO;
 import com.peer.missionpeerflow.entity.Question;

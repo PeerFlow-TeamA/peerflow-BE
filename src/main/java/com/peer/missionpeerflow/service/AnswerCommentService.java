@@ -1,9 +1,9 @@
 package com.peer.missionpeerflow.service;
 
 import com.peer.missionpeerflow.dto.mapper.RequestUserRecordDTOMapper;
-import com.peer.missionpeerflow.dto.request.AnswerCommentCreateDTO;
-import com.peer.missionpeerflow.dto.request.AnswerCommentDeleteDTO;
-import com.peer.missionpeerflow.dto.request.AnswerCommentModifyDTO;
+import com.peer.missionpeerflow.dto.request.answercomment.AnswerCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.answercomment.AnswerCommentDeleteDTO;
+import com.peer.missionpeerflow.dto.request.answercomment.AnswerCommentModifyDTO;
 import com.peer.missionpeerflow.exception.NotFoundException;
 import com.peer.missionpeerflow.entity.UserRecord;
 import com.peer.missionpeerflow.repository.AnswerCommentRepository;

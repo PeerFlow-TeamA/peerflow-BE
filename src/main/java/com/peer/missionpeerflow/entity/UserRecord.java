@@ -3,12 +3,14 @@ package com.peer.missionpeerflow.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 
 @Entity
 @Getter
-@Setter
 @NoArgsConstructor
 @Table(name = "user_record")
 public class UserRecord {
@@ -16,9 +18,11 @@ public class UserRecord {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Nullable
     @Column(columnDefinition = "varchar(20)")
     private String nickname;
 
-    @Column(columnDefinition = "varchar(30)", nullable = false)
+    @NotNull
+    @Column(columnDefinition = "varchar(30)")
     private String password;
 }

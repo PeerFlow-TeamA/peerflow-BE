@@ -1,4 +1,4 @@
-package com.peer.missionpeerflow.dto.request;
+package com.peer.missionpeerflow.dto.request.userrecord;
 
 import lombok.Builder;
 import lombok.Getter;

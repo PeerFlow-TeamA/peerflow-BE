@@ -1,9 +1,8 @@
 package com.peer.missionpeerflow.dto.mapper;
 
-import com.peer.missionpeerflow.dto.request.AnswerCommentCreateDTO;
-import com.peer.missionpeerflow.entity.AnswerComment;
+import com.peer.missionpeerflow.dto.request.answercomment.AnswerCommentCreateDTO;
 import com.peer.missionpeerflow.entity.UserRecord;
-import com.peer.missionpeerflow.dto.request.UserRecordDTO;
+import com.peer.missionpeerflow.dto.request.userrecord.UserRecordDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

@@ -1,8 +1,8 @@
 package com.peer.missionpeerflow.controller;
 
-import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
-import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
-import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
+import com.peer.missionpeerflow.dto.request.question.QuestionCreateDTO;
+import com.peer.missionpeerflow.dto.request.question.QuestionDeleteDTO;
+import com.peer.missionpeerflow.dto.request.question.QuestionModifyDTO;
 import com.peer.missionpeerflow.dto.response.QuestionDetailDTO;
 import com.peer.missionpeerflow.exception.message.SuccessMessage;
 import com.peer.missionpeerflow.service.QuestionService;
@@ -15,7 +15,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor

@@ -11,11 +11,11 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
-@Getter
-@NoArgsConstructor
-@Table(name = "question_comment")
 @Entity
-public class QuestionComment extends BaseEntity {
+@Table(name = "question_comment")
+@NoArgsConstructor
+@Getter
+public class QuestionComment extends BaseTimeEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long questionCommentId;
@@ -30,13 +30,7 @@ public class QuestionComment extends BaseEntity {
 	@JoinColumn(name = "userRecord_id")
 	private UserRecord userRecord;
 
-	@Builder
-	public QuestionComment(UserRecord userRecord, Question question, String content, LocalDateTime createdAt) {
-		this.userRecord = userRecord;
-		this.question = question;
-		this.content = content;
-		this.nickname = userRecord.getNickname();
-		this.password = userRecord.getPassword();
-		this.createdAt = createdAt;
-	}
+	@NotNull
+	@Column(name = "content")
+	private String content;
 }

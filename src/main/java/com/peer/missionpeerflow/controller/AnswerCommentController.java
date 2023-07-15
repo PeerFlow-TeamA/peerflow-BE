@@ -7,9 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
-import com.peer.missionpeerflow.dto.request.AnswerCommentCreateDTO;
-import com.peer.missionpeerflow.dto.request.AnswerCommentDeleteDTO;
-import com.peer.missionpeerflow.dto.request.AnswerCommentModifyDTO;
+import com.peer.missionpeerflow.dto.request.answercomment.AnswerCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.answercomment.AnswerCommentDeleteDTO;
+import com.peer.missionpeerflow.dto.request.answercomment.AnswerCommentModifyDTO;
 import com.peer.missionpeerflow.exception.message.SuccessMessage;
 import com.peer.missionpeerflow.exception.message.ErrorMessage;
 import com.peer.missionpeerflow.service.AnswerCommentService;

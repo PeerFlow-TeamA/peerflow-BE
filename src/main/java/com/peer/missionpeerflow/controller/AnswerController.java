@@ -14,9 +14,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import javax.validation.Valid;
 
-import com.peer.missionpeerflow.dto.request.AnswerDeleteDTO;
-import com.peer.missionpeerflow.dto.request.AnswerModifyDTO;
-import com.peer.missionpeerflow.dto.request.AnswerCreateDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerDeleteDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerModifyDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerCreateDTO;
 import com.peer.missionpeerflow.exception.message.SuccessMessage;
 
 @Controller

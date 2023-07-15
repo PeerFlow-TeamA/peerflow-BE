@@ -1,7 +1,6 @@
 package com.peer.missionpeerflow.entity;
 
-import com.sun.istack.NotNull;
-import java.time.LocalDateTime;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
@@ -24,11 +23,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "answer")
 @Entity
-public class Answer extends BaseEntity {
+public class Answer extends BaseTimeEntity {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long answerId;
+
+	@NotNull
+	@Column(name = "content")
+	private String content;
 
 	@NotNull
 	@ManyToOne
@@ -39,7 +42,7 @@ public class Answer extends BaseEntity {
 	private Long recommend = 0L;
 
 	@Column(nullable = false)
-	private Boolean isAdopted;
+	private Boolean isAdopted = false;
 
 	@OneToMany(mappedBy = "answer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<AnswerComment> answerCommentList = new ArrayList<>();

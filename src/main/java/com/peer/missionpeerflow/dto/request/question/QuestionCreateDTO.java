@@ -1,4 +1,4 @@
-package com.peer.missionpeerflow.dto.request;
+package com.peer.missionpeerflow.dto.request.question;
 
 import com.peer.missionpeerflow.util.Category;
 import lombok.AccessLevel;

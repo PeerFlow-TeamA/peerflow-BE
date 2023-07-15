@@ -1,4 +1,4 @@
-package com.peer.missionpeerflow.dto.request;
+package com.peer.missionpeerflow.dto.request.question;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

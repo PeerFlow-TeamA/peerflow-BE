@@ -1,8 +1,8 @@
 package com.peer.missionpeerflow.dto.mapper;
 
 import com.peer.missionpeerflow.entity.Answer;
-import com.peer.missionpeerflow.dto.request.AnswerCreateDTO;
-import com.peer.missionpeerflow.dto.request.AnswerModifyDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerCreateDTO;
+import com.peer.missionpeerflow.dto.request.answer.AnswerModifyDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

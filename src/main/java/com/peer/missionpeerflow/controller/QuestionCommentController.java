@@ -1,8 +1,8 @@
 package com.peer.missionpeerflow.controller;
 
-import com.peer.missionpeerflow.dto.request.QuestionCommentCreateDTO;
-import com.peer.missionpeerflow.dto.request.QuestionCommentDeleteDTO;
-import com.peer.missionpeerflow.dto.request.QuestionCommentModifyDTO;
+import com.peer.missionpeerflow.dto.request.questioncomment.QuestionCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.questioncomment.QuestionCommentDeleteDTO;
+import com.peer.missionpeerflow.dto.request.questioncomment.QuestionCommentModifyDTO;
 import com.peer.missionpeerflow.entity.QuestionComment;
 import com.peer.missionpeerflow.exception.message.SuccessMessage;
 import com.peer.missionpeerflow.service.QuestionCommentService;

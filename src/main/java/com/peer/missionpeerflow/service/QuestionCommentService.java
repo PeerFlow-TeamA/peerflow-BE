@@ -1,8 +1,8 @@
 package com.peer.missionpeerflow.service;
 
-import com.peer.missionpeerflow.dto.request.QuestionCommentCreateDTO;
-import com.peer.missionpeerflow.dto.request.QuestionCommentDeleteDTO;
-import com.peer.missionpeerflow.dto.request.QuestionCommentModifyDTO;
+import com.peer.missionpeerflow.dto.request.questioncomment.QuestionCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.questioncomment.QuestionCommentDeleteDTO;
+import com.peer.missionpeerflow.dto.request.questioncomment.QuestionCommentModifyDTO;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.entity.QuestionComment;
 import com.peer.missionpeerflow.entity.UserRecord;
@@ -10,7 +10,6 @@ import com.peer.missionpeerflow.exception.ForbiddenException;
 import com.peer.missionpeerflow.exception.NotFoundException;
 import com.peer.missionpeerflow.repository.QuestionCommentRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.query.internal.QueryImpl;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

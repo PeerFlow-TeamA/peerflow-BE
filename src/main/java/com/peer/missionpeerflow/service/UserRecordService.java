@@ -1,7 +1,7 @@
 package com.peer.missionpeerflow.service;
 
 import com.peer.missionpeerflow.dto.mapper.RequestUserRecordDTOMapper;
-import com.peer.missionpeerflow.dto.request.UserRecordDTO;
+import com.peer.missionpeerflow.dto.request.userrecord.UserRecordDTO;
 import com.peer.missionpeerflow.entity.UserRecord;
 import com.peer.missionpeerflow.repository.UserRecordRepository;
 import lombok.RequiredArgsConstructor;
