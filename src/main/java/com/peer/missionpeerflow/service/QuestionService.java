@@ -1,10 +1,12 @@
 package com.peer.missionpeerflow.service;
 
 
+import com.peer.missionpeerflow.dto.mapper.QuestionDetailAnswerDTOMapper;
 import com.peer.missionpeerflow.dto.mapper.QuestionDetailDTOMapper;
 import com.peer.missionpeerflow.dto.request.QuestionCreateDTO;
 import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
+import com.peer.missionpeerflow.dto.response.QuestionDetailAnswerDTO;
 import com.peer.missionpeerflow.dto.response.QuestionDetailDTO;
 import com.peer.missionpeerflow.entity.Answer;
 import com.peer.missionpeerflow.entity.Question;
@@ -19,6 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,6 +30,7 @@ public class QuestionService {
     private final QuestionRepository questionRepository;
     private final UserRecordRepository userRecordRepository;
     private final QuestionDetailDTOMapper questionDetailDTOMapper;
+    private final QuestionDetailAnswerDTOMapper questionDetailAnswerDTOMapper;
 
     @Transactional
     public void creat(@NotNull QuestionCreateDTO questionCreateRequest){
@@ -79,10 +83,15 @@ public class QuestionService {
 
     @Transactional(readOnly = true)
     public QuestionDetailDTO getQuestionDetail(Long id){
-        Optional<Question> question = this.questionRepository.findById(id);
-        if (question.isPresent() == false)
+        Optional<Question> optionalQuestion = this.questionRepository.findById(id);
+        if (optionalQuestion.isPresent() == false)
             throw new NotFoundException("Question not found");
-        return this.questionDetailDTOMapper.toDTO(question.get());
+        Question question = optionalQuestion.get();
+
+        List<QuestionDetailAnswerDTO> questionDetailAnswerDTO = this.questionDetailAnswerDTOMapper.toDTOList(question.getAnswerList());
+
+        QuestionDetailDTO questionDetailDTO = this.questionDetailDTOMapper.toDTO(question, questionDetailAnswerDTO);
+        return questionDetailDTO;
     }
 
     @Transactional

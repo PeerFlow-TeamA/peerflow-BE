@@ -22,7 +22,7 @@ public class QuestionDetailDTO {
     @NotNull
     private LocalDateTime createAt;
     private LocalDateTime updateAt;
-    private List<Answer> answerList;
+    private List<QuestionDetailAnswerDTO> answerList;
     @NotNull
     private String type;
     @NotNull
