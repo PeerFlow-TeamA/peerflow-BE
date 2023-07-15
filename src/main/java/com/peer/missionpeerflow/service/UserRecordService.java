@@ -18,4 +18,12 @@ public class UserRecordService {
         this.userRecordRepository.save(saveEntity);
         return saveEntity;
     }
+
+    public UserRecord create(String nickname, String password){
+        UserRecord userRecord = new UserRecord();
+        userRecord.setNickname(nickname);
+        userRecord.setPassword(password);
+        this.userRecordRepository.save(userRecord);
+        return userRecord;
+    }
 }
