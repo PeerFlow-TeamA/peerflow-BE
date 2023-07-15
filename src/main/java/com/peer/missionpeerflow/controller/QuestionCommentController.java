@@ -1,6 +1,7 @@
 package com.peer.missionpeerflow.controller;
 
 import com.peer.missionpeerflow.dto.request.QuestionCommentCreateDTO;
+import com.peer.missionpeerflow.dto.request.QuestionCommentModifyDTO;
 import com.peer.missionpeerflow.entity.QuestionComment;
 import com.peer.missionpeerflow.exception.message.SuccessMessage;
 import com.peer.missionpeerflow.service.QuestionCommentService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
@@ -19,9 +21,15 @@ import javax.validation.Valid;
 public class QuestionCommentController {
     private final QuestionCommentService questionCommentService;
 
-    @PostMapping("v1/question/{questionid}/comment")
-    public ResponseEntity<Object> create(@Valid @RequestBody QuestionCommentCreateDTO questionCommentCreateDTO, @PathVariable(name = "questionid") Long questionId){
+    @PostMapping("v1/question/{questionId}/comment")
+    public ResponseEntity<Object> create(@Valid @RequestBody QuestionCommentCreateDTO questionCommentCreateDTO, @PathVariable(name = "questionId") Long questionId){
         QuestionComment questionComment = this.questionCommentService.create(questionCommentCreateDTO, questionId);
         return ResponseEntity.status(HttpStatus.CREATED).body(SuccessMessage.of("comment on question created successfully"));
+    }
+
+    @PutMapping("v1/question/{questionId}/comment/{commentId}")
+    public ResponseEntity<Object> modify(@Valid @RequestBody QuestionCommentModifyDTO questionCommentModifyDTO, @PathVariable(name = "questionId") Long questionId, @PathVariable(name = "commentId") Long commentId){
+        this.questionCommentService.modify(questionCommentModifyDTO, questionId, commentId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(SuccessMessage.of("comment on question modified successfully"));
     }
 }
