@@ -24,4 +24,7 @@ public class QuestionModifyDTO {
 
     @NotNull(message = "카테고리를 입력해주세요")
     private Category category;
+
+    @NotNull(message = "수정 시간을 입력해주세요.")
+    private String updatedAt;
 }
