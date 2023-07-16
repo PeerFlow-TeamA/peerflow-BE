@@ -34,11 +34,7 @@ public class MainController {
     public ResponseEntity<Object> getSearchList(@Valid @RequestParam String title,
                                                 @Valid @RequestParam String sort,
                                                 @RequestParam int page,
-                                                @RequestParam int size,
-                                                BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new QueryParameterException("Query parameter is invalid");
-        }
+                                                @RequestParam int size) {
         Page<MainQuestionDTO> questionDTOList = this.mainService.getSearchList(title, sort, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(questionDTOList);
     }
