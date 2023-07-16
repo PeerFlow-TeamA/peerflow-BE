@@ -20,7 +20,7 @@ public interface QuestionDetailDTOMapper {
             @Mapping(target = "content", source = "question.content"),
             @Mapping(target = "createAt", source = "question.createdAt"),
             @Mapping(target = "updateAt", source = "question.updatedAt"),
-            @Mapping(target = "type", ignore = true),
+            @Mapping(target = "type", constant = "question"),
             @Mapping(target = "title", source = "question.title"),
             @Mapping(target = "category", source = "question.category"),
             @Mapping(target = "recommend", source = "question.recommend"),

@@ -1,9 +1,8 @@
 package com.peer.missionpeerflow.dto.request;
 
 import com.peer.missionpeerflow.util.Category;
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
@@ -12,7 +11,7 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor
 public class QuestionCreateDTO {
     @NotNull(message = "제목을 입력해주세요.")
     @Size(max=100)
@@ -26,12 +25,6 @@ public class QuestionCreateDTO {
     private Category category;
     @NotNull(message = "내용을 입력해주세요.")
     private String content;
-
-    public QuestionCreateDTO(String title, String nickname, String password, String category, String content, LocalDateTime createAt){
-        this.title = title;
-        this.nickname = nickname;
-        this.password = password;
-        this.category = Category.ofType(category);
-        this.content = content;
-    }
+    @NotNull(message = "생성날짜를 입력해주세요.")
+    private String createdAt;
 }
