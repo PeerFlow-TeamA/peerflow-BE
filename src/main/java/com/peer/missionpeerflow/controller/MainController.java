@@ -25,11 +25,7 @@ public class MainController {
     public ResponseEntity<Object> getMainList(@Valid @RequestParam String category,
                                               @Valid @RequestParam String sort,
                                               @RequestParam int page,
-                                              @RequestParam int size,
-                                              BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new QueryParameterException("Query parameter is invalid");
-        }
+                                              @RequestParam int size) {
         Page<MainQuestionDTO> questionDTOList = this.mainService.getMainList(category, sort, page, size);
         return ResponseEntity.status(HttpStatus.OK).body(questionDTOList);
     }

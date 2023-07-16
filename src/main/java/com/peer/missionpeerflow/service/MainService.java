@@ -3,6 +3,7 @@ package com.peer.missionpeerflow.service;
 import com.peer.missionpeerflow.dto.response.MainQuestionDTO;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.exception.NotFoundException;
+import com.peer.missionpeerflow.util.Category;
 import lombok.RequiredArgsConstructor;
 import com.peer.missionpeerflow.repository.MainRepository;
 import com.peer.missionpeerflow.dto.mapper.MainQuestionDTOMapper;
@@ -24,7 +25,8 @@ public class MainService{
         if (category.equals("all")) {
             questionList = this.mainRepository.findAll(pageRequest);
         } else {
-            questionList = this.mainRepository.findAllByCategory(category, pageRequest);
+            Category categoryEnum = Category.ofType(category);
+            questionList = this.mainRepository.findAllByCategory(categoryEnum, pageRequest);
         }
         return this.mainQuestionDTOMapper.toMainQuestionDTOPage(questionList);
     }
@@ -40,7 +42,7 @@ public class MainService{
             case "latest":
                 return Sort.by("createdAt").descending();
             case "views":
-                return Sort.by("views").descending();
+                return Sort.by("view").descending();
             case "recommend":
                 return Sort.by("recommend").descending();
             default:
