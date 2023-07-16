@@ -13,7 +13,7 @@ import lombok.Builder;
 
 @Getter
 public class AnswerCreateDTO {
-    @NotEmpty(message = "답글을 달 질문의 id를 입력해주세요.")
+    @NotNull(message = "답글을 달 질문의 id를 입력해주세요.")
     private Long questionId;
     @NotEmpty(message = "작성자의 닉네임을 입력해주세요.")
     @Size(max = 20)
