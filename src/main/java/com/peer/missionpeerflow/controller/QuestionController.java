@@ -35,9 +35,7 @@ public class QuestionController {
     }
 
     @GetMapping("/v1/question/{questionid}")
-    public ResponseEntity<Object> detail(Model model, @PathVariable(name = "questionid") Long id, BindingResult bindingResult) {
-        if (bindingResult.hasErrors())
-            throw new QueryParameterException("Query parameter is invalid");
+    public ResponseEntity<Object> detail(Model model, @PathVariable(name = "questionid") Long id) {
         QuestionDetailDTO questionDetailDTO = this.questionService.getQuestionDetail(id);
         model.addAttribute("questionDetail", questionDetailDTO);
         return ResponseEntity.status(HttpStatus.OK).body(questionDetailDTO);
@@ -57,5 +55,11 @@ public class QuestionController {
             throw new QueryParameterException("Query parameter is invalid");
         questionService.delete(questionDeleteDTO, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(SuccessMessage.of("question deleted successfully"));
+    }
+
+    @PostMapping("/v1/question/{questionId}/recommendation")
+    public ResponseEntity<Object> recommend(@PathVariable(name = "questionId") Long questionId){
+        this.questionService.recommend(questionId);
+        return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("question recommendation success"));
     }
 }

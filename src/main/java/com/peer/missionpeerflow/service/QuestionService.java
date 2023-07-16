@@ -88,4 +88,10 @@ public class QuestionService {
             throw new NotFoundException("Question not found");
         return question.get();
     }
+
+    @Transactional
+    public void recommend(Long questionId){
+        Question question = findQuestionByQuestionId(questionId);
+        question.setRecommend(question.getRecommend() + 1);
+    }
 }
