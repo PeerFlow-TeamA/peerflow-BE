@@ -51,4 +51,10 @@ public class AnswerController {
         answerService.delete(answerDeleteDTO, id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).body(SuccessMessage.of("Answer deleted successfully"));
     }
+
+    @PostMapping("/{answerId}/recommendation")
+    public ResponseEntity recommend(@PathVariable(name = "answerId") Long answerId){
+        this.answerService.recommend(answerId);
+        return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("answer recommendation success"));
+    }
 }
