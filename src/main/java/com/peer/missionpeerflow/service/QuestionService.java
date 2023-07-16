@@ -68,16 +68,17 @@ public class QuestionService {
         this.questionRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public QuestionDetailDTO getQuestionDetail(Long id){
         Optional<Question> optionalQuestion = this.questionRepository.findById(id);
         if (optionalQuestion.isPresent() == false)
             throw new NotFoundException("Question not found");
         Question question = optionalQuestion.get();
+        question.setView(question.getView() + 1L);
 
         List<QuestionDetailAnswerDTO> questionDetailAnswerDTO = this.questionDetailAnswerDTOMapper.toDTOList(question.getAnswerList());
-
         QuestionDetailDTO questionDetailDTO = this.questionDetailDTOMapper.toDTO(question, questionDetailAnswerDTO);
+
         return questionDetailDTO;
     }
 

@@ -27,7 +27,7 @@ public interface RequestAnswerDTOMapper {
     @Mappings({
             @Mapping(target = "answerId", source = "originAnswer.answerId"),
             @Mapping(target = "question.questionId", source = "originAnswer.question.questionId"),
-            @Mapping(target = "nickname", source = "answerModifyDTO.nickname"),
+            @Mapping(target = "nickname", ignore = true),
             @Mapping(target = "password", source = "answerModifyDTO.password"),
             @Mapping(target = "content", source = "answerModifyDTO.content"),
             @Mapping(target = "recommend", source = "originAnswer.recommend"),
