@@ -42,6 +42,11 @@ public class GlobalControllerAdvice {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.of(e));
 	}
 
+	@ExceptionHandler(value = DuplicatedAdoptionException.class)
+	public ResponseEntity duplicatedAdoptionException(DuplicatedAdoptionException e) {
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ErrorMessage.of(e));
+	}
+
 	@ExceptionHandler(value = Exception.class)
 	public ResponseEntity exception(Exception e) {
 //		e.printStackTrace(); 디버깅용 코드
