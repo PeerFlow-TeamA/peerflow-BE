@@ -34,8 +34,8 @@ public class QuestionController {
         return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("Question created successfully"));
     }
 
-    @GetMapping("/v1/question/{questionid}")
-    public ResponseEntity<Object> detail(Model model, @PathVariable(name = "questionid") Long id) {
+    @GetMapping("/v1/question/{questionId}")
+    public ResponseEntity<Object> detail(Model model, @PathVariable(name = "questionId") Long id) {
         QuestionDetailDTO questionDetailDTO = this.questionService.getQuestionDetail(id);
         model.addAttribute("questionDetail", questionDetailDTO);
         return ResponseEntity.status(HttpStatus.OK).body(questionDetailDTO);

@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class QuestionCreateDTO {
     @NotNull(message = "제목을 입력해주세요.")
-    @Size(max=100)
+    @Size(max=100, min = 1)
     private String title;
     @Size(max=20)
     private String nickname;
