@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 
@@ -21,10 +22,10 @@ public class MainController {
     private final MainService mainService;
 
     @GetMapping("/v1?category={category}&sort={sort}&page={page}&size={size}")
-    public ResponseEntity<Object> getMainList(@Valid @PathVariable String category,
-                                              @Valid @PathVariable String sort,
-                                              @PathVariable int page,
-                                              @PathVariable int size,
+    public ResponseEntity<Object> getMainList(@Valid @RequestParam String category,
+                                              @Valid @RequestParam String sort,
+                                              @RequestParam int page,
+                                              @RequestParam int size,
                                               BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new QueryParameterException("Query parameter is invalid");
