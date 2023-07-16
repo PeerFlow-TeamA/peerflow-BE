@@ -9,5 +9,6 @@ import org.springframework.data.domain.Pageable;
 public interface MainRepository extends PagingAndSortingRepository<Question, Long> {
     Page<Question> findAllByCategory(String category, Pageable pageable);
 
+    Page<Question> findAllByTitleContaining(String title, Pageable pageable);
     Page<Question> findAll(Pageable pageable);
 }
