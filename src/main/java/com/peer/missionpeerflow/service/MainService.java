@@ -43,7 +43,7 @@ public class MainService{
                 return Sort.by("createdAt").descending();
             case "views":
                 return Sort.by("view").descending();
-            case "recommend":
+            case "recommends":
                 return Sort.by("recommend").descending();
             default:
                 throw new QueryParameterException("sort standard incorrected");
