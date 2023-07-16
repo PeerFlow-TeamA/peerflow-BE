@@ -27,6 +27,7 @@ public class Question extends BaseEntity {
 
 	@Column(nullable = false)
 	@Convert(converter = CategoryAttributeConverter.class)
+	@Enumerated(EnumType.STRING)
 	private Category category;
 
 	@Column(nullable = false)
