@@ -9,6 +9,7 @@ import com.peer.missionpeerflow.dto.request.QuestionDeleteDTO;
 import com.peer.missionpeerflow.dto.request.QuestionModifyDTO;
 import com.peer.missionpeerflow.dto.response.QuestionDetailAnswerDTO;
 import com.peer.missionpeerflow.dto.response.QuestionDetailDTO;
+import com.peer.missionpeerflow.entity.Answer;
 import com.peer.missionpeerflow.entity.Question;
 import com.peer.missionpeerflow.entity.UserRecord;
 import com.peer.missionpeerflow.exception.ForbiddenException;
@@ -94,5 +95,11 @@ public class QuestionService {
     public void recommend(Long questionId){
         Question question = findQuestionByQuestionId(questionId);
         question.setRecommend(question.getRecommend() + 1);
+    }
+
+    @Transactional
+    public List<Answer> findAllAnswersByQuestionId(Long questionId){
+        Question question = this.findQuestionByQuestionId(questionId);
+        return question.getAnswerList();
     }
 }

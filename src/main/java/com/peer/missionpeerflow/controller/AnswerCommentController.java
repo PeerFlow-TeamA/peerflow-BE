@@ -1,6 +1,9 @@
 package com.peer.missionpeerflow.controller;
 
+import com.peer.missionpeerflow.dto.response.AnswerCommentDTO;
+import com.peer.missionpeerflow.dto.response.QuestionCommentDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -53,5 +56,11 @@ public class AnswerCommentController {
         }
         answerCommentService.delete(answerCommentDeleteDTO, answerId, answerCommentId);
         return ResponseEntity.status(HttpStatus.CREATED).body(SuccessMessage.of("Comment on answer deleted successfully"));
+    }
+
+    @GetMapping("/v1/answer/{answerId}/comments")
+    public ResponseEntity getAnswerCommentList(@PathVariable Long answerId, @RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size){
+        Page<AnswerCommentDTO> answerCommentDTOPage = this.answerCommentService.getAnswerCommandList(answerId, page, size);
+        return ResponseEntity.status(HttpStatus.OK).body(answerCommentDTOPage);
     }
 }

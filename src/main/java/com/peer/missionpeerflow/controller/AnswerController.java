@@ -4,11 +4,7 @@ import com.peer.missionpeerflow.exception.message.ErrorMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import com.peer.missionpeerflow.service.AnswerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -56,5 +52,11 @@ public class AnswerController {
     public ResponseEntity recommend(@PathVariable(name = "answerId") Long answerId){
         this.answerService.recommend(answerId);
         return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("answer recommendation success"));
+    }
+
+    @PostMapping("/{answerId}/adopt")
+    public ResponseEntity adopt(@PathVariable(name = "answerId") Long answerId){
+        this.answerService.adopt(answerId);
+        return ResponseEntity.status(HttpStatus.OK).body(SuccessMessage.of("answer adopted successfully"));
     }
 }

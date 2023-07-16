@@ -3,6 +3,7 @@ package com.peer.missionpeerflow.service;
 
 
 import com.peer.missionpeerflow.dto.mapper.RequestAnswerDTOMapper;
+import com.peer.missionpeerflow.exception.DuplicatedAdoptionException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +17,7 @@ import com.peer.missionpeerflow.exception.NotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -61,6 +63,17 @@ public class AnswerService {
     public void recommend(Long answerId){
         Answer answer = findAnswerByAnswerId(answerId);
         answer.setRecommend(answer.getRecommend() + 1);
+    }
+
+    @Transactional
+    public void adopt(Long answerId){
+        Answer answer = findAnswerByAnswerId(answerId);
+        if (answer.getIsAdopted() == true)
+            return ;
+        List<Answer> answerList = this.questionService.findAllAnswersByQuestionId(answer.getQuestion().getQuestionId());
+        if (answerList.stream().filter(a -> a.getIsAdopted() == true).findAny().isPresent() == true)
+            throw new DuplicatedAdoptionException("another answer was already adopted");
+        answer.setIsAdopted(true);
     }
 
     @Transactional

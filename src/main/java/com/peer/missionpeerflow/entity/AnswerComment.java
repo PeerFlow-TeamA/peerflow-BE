@@ -12,6 +12,7 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "answer_comment")
 @Entity
@@ -29,11 +30,4 @@ public class AnswerComment extends BaseEntity {
 	@ManyToOne
 	@JoinColumn(name = "answer_id")
 	private Answer answer;
-
-	@Builder
-	public AnswerComment(UserRecord writer, Answer answer, String content) {
-		this.writer = writer;
-		this.answer = answer;
-		this.content = content;
-	}
 }
