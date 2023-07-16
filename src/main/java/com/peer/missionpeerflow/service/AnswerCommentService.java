@@ -32,9 +32,6 @@ public class AnswerCommentService {
                 .writer(savedUserRecord)
                 .content(answerCommentCreateDTO.getContent())
                 .build();
-        foundAnswer.getAnswerCommentList().add(saveEntity);
-
-        this.answerService.save(foundAnswer);
         this.answerCommnetRepository.save(saveEntity);
     }
 
@@ -62,8 +59,6 @@ public class AnswerCommentService {
         if (answerCommentDeleteDTO.getPassword().equals(foundAnswerComment.getWriter().getPassword()) == false)
             throw new NotFoundException("Password incorrect");
 
-        foundAnswer.getAnswerCommentList().remove(foundAnswerComment);
-        this.answerService.save(foundAnswer);
         this.answerCommnetRepository.delete(foundAnswerComment);
     }
 
