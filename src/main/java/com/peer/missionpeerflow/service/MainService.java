@@ -6,6 +6,7 @@ import com.peer.missionpeerflow.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import com.peer.missionpeerflow.repository.MainRepository;
 import com.peer.missionpeerflow.dto.mapper.MainQuestionDTOMapper;
+import org.hibernate.QueryParameterException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,6 +29,12 @@ public class MainService{
         return this.mainQuestionDTOMapper.toMainQuestionDTOPage(questionList);
     }
 
+    public Page<MainQuestionDTO> getSearchList(String title, String sort, int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size, this.getQuestionPageSortClassByRequestSort(sort));
+        Page<Question> questionList = this.mainRepository.findAllByTitleContaining(title, pageRequest);
+        return this.mainQuestionDTOMapper.toMainQuestionDTOPage(questionList);
+    }
+
     private Sort getQuestionPageSortClassByRequestSort(String sortKeyword) {
         switch (sortKeyword) {
             case "latest":
@@ -37,7 +44,7 @@ public class MainService{
             case "recommend":
                 return Sort.by("recommend").descending();
             default:
-                return Sort.by("id").descending();
+                throw new QueryParameterException("sort standard incorrected");
         }
     }
 }
